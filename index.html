@@ -79,6 +79,44 @@
 
  </style>
 
+<style>
+    .search-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+input {
+  font-size: 1rem;
+}
+
+.user-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: .25rem;
+  margin-top: 1rem;
+}
+
+.card {
+  border: 1px solid black;
+  background-color: white;
+  padding: .5rem;
+}
+
+.card > .header {
+  margin-bottom: .25rem;
+}
+
+.card > .body {
+  font-size: .8rem;
+  color: #777;
+}
+
+.hide {
+  display: none;
+}
+  </style>
+
    <!-- Global site tag (gtag.js) - Google Analytics -->
    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBZQE2GPXR"></script>
    <script>
@@ -166,7 +204,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4" id="siirler">
-                    <div class="card mb-4" id="yetiskinkitabi"> 
+                    <div class="search-wrapper card mb-4">
+                        <label for="search">Ara</label>
+                        <input type="search" id="search" data-search>
+                      </div>
+                    <div class="card mb-4" id="yetiskinkitabi" icerikler> 
                         <p><button onclick="resimle('Merged_document74')" id="Merged_document74" class="baslik"><a href="#resimsayfalari">GİRİŞ</a></button></p>
                         
                         <p><button onclick="resimle('Merged_document')" id="Merged_document" class="baslik"><a href="#resimsayfalari">İÇİNDEKİLER</a></button></p>
@@ -464,6 +506,33 @@
             console.log(resmim);
         };
         
+
+
+        //const userCardContainer = document.querySelector("[icerikler]")
+        const searchInput = document.querySelector("[data-search]")
+
+        icerikNode = document.querySelector("[icerikler]");
+        let icerikpler=icerikNode.querySelectorAll("p");
+        console.log(icerikpler);
+
+
+        searchInput.addEventListener("input", e => {
+            const value = e.target.value.toLowerCase()
+            icerikpler.forEach(eleman =>{
+                const isVisible = eleman.innerText.toLowerCase().includes(value);
+                console.log(eleman);
+                if (!isVisible) {
+                    eleman.removeAttribute("class", "hide");
+                    eleman.setAttribute("class", "hide");
+                } else {
+                    eleman.removeAttribute("class", "hide");
+                }
+    
+            });    
+
+  
+        });
+
         /*
         yetiskin.addEventListener('click', () => {
             yetiskinle();  
